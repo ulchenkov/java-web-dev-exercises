@@ -1,43 +1,47 @@
 package org.launchcode.java.test;
 
+import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class MyTests {
     public static void main(String[] args) {
-        Integer[] myArr = new Integer[2];
-        int currentElement = 0;
-        int newNumber;
+        String text = "";
+        File file = new File("bands.txt");
 
-        Scanner scanner = new Scanner(System.in);
-        do {
-            System.out.print("Enter a number: ");
-            newNumber = scanner.nextInt();
-            if (currentElement == myArr.length) {
-                myArr = expandArray(myArr);
-                printArr(myArr);
+        // Create file
+        try {
+            if (file.createNewFile()) {
+                System.out.println("File created: " + file.getName());
+            } else {
+                System.out.println("File already exists.");
             }
-            myArr[currentElement] = newNumber;
-            currentElement++;
-        } while (newNumber != 0);
-        printArr(myArr);
-    }
-
-    private static Integer[] expandArray(Integer[] arr) {
-        Integer[] newArr = new Integer[arr.length * 2];
-        System.arraycopy(arr, 0, newArr, 0, arr.length);
-        return newArr;
-    }
-
-    private static void printArr(Integer[] arr) {
-        System.out.print("[");
-        for(int i = 0; i < arr.length - 1; i++) {
-            System.out.printf("%s, ", arr[i]);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        if (arr.length > 0) {
-            System.out.print(arr[arr.length - 1]);
+
+        // Write file
+        try {
+            FileWriter writer = new FileWriter(file);
+            writer.write("abcdbd");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        System.out.println("]");
+
+        // Read file
+        try {
+            Scanner reader = new Scanner(file);
+            while (reader.hasNextLine()) {
+                String nextLine = reader.nextLine();
+                text += nextLine;
+            }
+            reader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println(text);
     }
-
-
 }

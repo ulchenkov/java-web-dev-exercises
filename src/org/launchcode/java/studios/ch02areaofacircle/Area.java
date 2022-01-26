@@ -1,4 +1,4 @@
-package org.launchcode.java.studios.areaofacircle;
+package org.launchcode.java.studios.ch02areaofacircle;
 
 import org.launchcode.java.exercises.ch02.Alice;
 
