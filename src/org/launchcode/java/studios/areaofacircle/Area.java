@@ -1,5 +1,7 @@
 package org.launchcode.java.studios.areaofacircle;
 
+import org.launchcode.java.exercises.ch02.Alice;
+
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -11,6 +13,8 @@ public class Area {
 
         Scanner scanner = new Scanner(System.in);
         scanner.useLocale(Locale.US);
+
+        Alice alice;
         do {
             System.out.print("Enter a radius (non negative number): ");
             if (scanner.hasNextDouble()){

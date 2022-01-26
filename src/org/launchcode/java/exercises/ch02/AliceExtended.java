@@ -1,4 +1,4 @@
-package org.launchcode.java.exercises.ch01;
+package org.launchcode.java.exercises.ch02;
 
 import java.util.Scanner;
 

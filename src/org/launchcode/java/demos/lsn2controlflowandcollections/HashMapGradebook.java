@@ -40,6 +40,12 @@ public class HashMapGradebook {
             sum += student.getValue();
         }
 
+        // <- my
+        for (String student : students.keySet()) {
+            System.out.printf("%s [%s]%n", student, students.get(student));
+        }
+        // my ->
+
         double avg = sum / students.size();
         System.out.println("Average grade: " + avg);
     }
