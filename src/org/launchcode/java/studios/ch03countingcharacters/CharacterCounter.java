@@ -2,6 +2,7 @@ package org.launchcode.java.studios.ch03countingcharacters;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -12,21 +13,70 @@ public class CharacterCounter {
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
 
-        int menuItem = selectMenuItem();
-        String text = getText(menuItem);
-        HashMap<Character, Integer> counter = calculateCharacters(text, true, true);
-        printResults(counter);
+        while (true) {
+
+            // Select a string
+            ArrayList<String> menuItems = new ArrayList<>();
+            menuItems.add("Use the default string");
+            menuItems.add("Enter the string");
+            menuItems.add("Read the string from a file");
+            int menuItem = getUserSelection("What string would you like to use (ENTER to exit)", menuItems);
+            if (menuItem == 0) {
+                break;
+            }
+            String text = getText(menuItem);
+
+            // Select a counts type
+            menuItems = new ArrayList<>();
+            menuItems.add("Case-Sensitive, All Characters");
+            menuItems.add("Case-Insensitive, Alphabetic Characters Only");
+            menuItem = getUserSelection("Select counts type", menuItems);
+            if(menuItem != 0) {
+                boolean isCaseInsensitive = menuItem != 1;
+                boolean isAlphabeticOnly = menuItem != 1;
+                //
+                HashMap<Character, Integer> counter = countCharacters(text, isCaseInsensitive, isAlphabeticOnly);
+                printResults(counter);
+            }
+        }
     }
 
-    private static int selectMenuItem() {
-        System.out.print("""
-                What string would you like to use:
-                1. Use the default string
-                2. Enter the string
-                3. Read the string from a file
-                Enter 1, 2 or 3:\s""");
-        int menuItem = scanner.nextInt();
-        String tmp = scanner.nextLine();
+    // Returns number of selected menu item or 0 if nothing was selected
+    private static int getUserSelection(String menuTitle, ArrayList<String> menuItems) {
+        System.out.printf("%n%s:%n", menuTitle);
+        for(int i = 0; i < menuItems.size(); i++) {
+            System.out.printf("%s. %s%n", i + 1, menuItems.get(i));
+        }
+
+        String selectionOptions;
+        if (menuItems.size() > 5) {
+            selectionOptions = "Enter 1, 2, ..., " + (menuItems.size() - 1) + ", " + menuItems.size() + ": ";
+        } else {
+            selectionOptions = "Enter ";
+            for(int i = 0; i < menuItems.size() - 1; i++){
+                selectionOptions += String.format("%s, ", i + 1);
+            }
+            selectionOptions += String.format("or %s: ", menuItems.size());
+        }
+
+        int menuItem = -1;
+        do {
+            String userInput = enterString(selectionOptions);
+            if (userInput.isEmpty()) {
+                menuItem = 0;
+
+            } else {
+                try {
+                    menuItem = Integer.parseInt(userInput);
+                    if (menuItem < 1 || menuItem > menuItems.size()) {
+                        menuItem = -1;
+                        System.out.printf("Enter a number from 1 to %s!%n", menuItems.size());
+                    }
+                } catch (NumberFormatException exception) {
+                    System.out.println("Not a number!");
+                }
+            }
+        } while (menuItem < 0);
         return menuItem;
     }
 
@@ -42,14 +92,14 @@ public class CharacterCounter {
                 File textFile = selectFile();
                 text = readStringFromFile(textFile);
             }
-            default -> throw new IllegalArgumentException("No such menu item.");
+            default -> throw new IllegalArgumentException(String.format("No such menu item: %s", menuItem));
         }
         return text;
     }
 
-    private static HashMap<Character, Integer> calculateCharacters(String text,
-                                                                   boolean isCaseInsensitive,
-                                                                   boolean isAlphabeticOnly) {
+    private static HashMap<Character, Integer> countCharacters(String text,
+                                                               boolean isCaseInsensitive,
+                                                               boolean isAlphabeticOnly) {
         if (isCaseInsensitive) {
             text = text.toLowerCase();
         }
@@ -67,10 +117,6 @@ public class CharacterCounter {
         return counter;
     }
 
-    private static HashMap<Character, Integer> calculateCharacters(String text) {
-        return calculateCharacters(text, false, false);
-    }
-
     private static void printResults(HashMap<Character, Integer> counter) {
         for (char ch : counter.keySet()) {
             System.out.printf("%s: %s%n", ch, counter.get(ch));
@@ -79,8 +125,7 @@ public class CharacterCounter {
 
     private static String enterString(String prompt) {
         System.out.printf("%s: ", prompt);
-        String str = scanner.nextLine();
-        return str;
+        return scanner.nextLine();
     }
 
     private static File selectFile() {
@@ -100,18 +145,17 @@ public class CharacterCounter {
     }
 
     private static String readStringFromFile(File textFile) {
-        String text = "";
-        Scanner reader = null;
+        StringBuilder text = new StringBuilder();
         try {
-            reader = new Scanner(textFile);
+            Scanner reader = new Scanner(textFile);
+            while (reader.hasNextLine()) {
+                String nextLine = reader.nextLine();
+                text.append(nextLine);
+            }
+            reader.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        while (reader.hasNextLine()) {
-            String nextLine = reader.nextLine();
-            text += nextLine;
-        }
-        reader.close();
-        return text;
+        return text.toString();
     }
 }
