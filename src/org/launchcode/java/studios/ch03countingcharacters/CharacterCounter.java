@@ -34,8 +34,9 @@ public class CharacterCounter {
             if(menuItem != 0) {
                 boolean isCaseInsensitive = menuItem != 1;
                 boolean isAlphabeticOnly = menuItem != 1;
-                //
+                // count characters
                 HashMap<Character, Integer> counter = countCharacters(text, isCaseInsensitive, isAlphabeticOnly);
+                // print result
                 printResults(counter);
             }
         }
