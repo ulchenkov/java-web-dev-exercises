@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Menu {
-    private ArrayList<MenuItem> items;
+    private final ArrayList<MenuItem> items;
     private Date lastUpdate;
 
     public Menu(ArrayList<MenuItem> items, Date lastUpdate) {
@@ -18,7 +18,7 @@ public class Menu {
     }
 
     public ArrayList<MenuItem> getItems() {
-        return items;
+        return new ArrayList<>(this.items);
     }
 
     public boolean addItem(MenuItem item) {
@@ -44,7 +44,7 @@ public class Menu {
     }
 
     public String getLastUpdateFormatted() {
-        SimpleDateFormat dateFormatted = new SimpleDateFormat("EEE, MMM d, YYYY");
+        SimpleDateFormat dateFormatted = new SimpleDateFormat("EEE, MMM d, yyyy");
         return dateFormatted.format(this.lastUpdate);
     }
 
@@ -52,7 +52,7 @@ public class Menu {
     public String toString() {
         StringBuilder menuText = new StringBuilder("\n=== OUR MENU === \n\n" + "Last updated: " + getLastUpdateFormatted() + "\n\n");
         for(var item : items) {
-            menuText.append(item + "\n");
+            menuText.append(String.format("%s\n", item));
         }
         return menuText.toString();
     }

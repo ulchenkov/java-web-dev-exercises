@@ -1,4 +1,4 @@
-package org.launchcode.java.demos.lsn5unittesting.main;
+package org.launchcode.java.exercises.ch06.main;
 
 public class Car {
 

@@ -12,12 +12,17 @@ public class MyRestaurant {
         item = new MenuItem("Southwestern Eggrolls", 6.0, Category.APPETIZER);
         menu.addItem(item);
         MenuItem itemToRemove = item;
-        item = new MenuItem("Potato Salad", 6.0, Category.MAIN_COURSE);
+        item = new MenuItem("NEW AHI POKE", 6.0, Category.MAIN_COURSE);
         System.out.println(menu.addItem(item));
 
-        System.out.println(menu);
+        Category cat = item.getCategory();
 
-        menu.removeItem(itemToRemove);
+        cat=Category.APPETIZER;
+
+        menu.getItems().remove(item);
+
+
+
         System.out.println(menu);
 
     }
