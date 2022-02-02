@@ -6,11 +6,11 @@ import java.util.Date;
 
 public class Menu {
     private final ArrayList<MenuItem> items;
-    private Date lastUpdate;
+    private Date lastUpdated;
 
     public Menu(ArrayList<MenuItem> items, Date lastUpdate) {
         this.items = items;
-        this.lastUpdate = lastUpdate;
+        this.lastUpdated = lastUpdate;
     }
 
     public Menu() {
@@ -24,7 +24,7 @@ public class Menu {
     public boolean addItem(MenuItem item) {
         if (item != null && !this.items.contains(item)) {
             this.items.add(item);
-            this.lastUpdate = new Date();
+            this.lastUpdated = new Date();
             return true;
         }
         System.out.println("Item hasn't been added because it is already on the menu!");
@@ -34,23 +34,23 @@ public class Menu {
     public boolean removeItem(MenuItem item) {
         boolean result = this.items.remove(item);
         if (result) {
-            this.lastUpdate = new Date();
+            this.lastUpdated = new Date();
         }
         return result;
     }
 
-    public Date getLastUpdate() {
-        return lastUpdate;
+    public Date getLastUpdated() {
+        return lastUpdated;
     }
 
-    public String getLastUpdateFormatted() {
+    public String getLastUpdatedFormatted() {
         SimpleDateFormat dateFormatted = new SimpleDateFormat("EEE, MMM d, yyyy");
-        return dateFormatted.format(this.lastUpdate);
+        return dateFormatted.format(this.lastUpdated);
     }
 
     @Override
     public String toString() {
-        StringBuilder menuText = new StringBuilder("\n=== OUR MENU === \n\n" + "Last updated: " + getLastUpdateFormatted() + "\n\n");
+        StringBuilder menuText = new StringBuilder("\n=== OUR MENU === \n\n" + "Last updated: " + getLastUpdatedFormatted() + "\n\n");
         for(var item : items) {
             menuText.append(String.format("%s\n", item));
         }

@@ -6,10 +6,10 @@ public class MenuItem {
     private static final int NEW_DAYS = 30;
     private static  final long MILLISECONDS_IN_DAY =  1000 * 60 * 60 * 24; // 86400000
 
-    private String description;
-    private double price;
-    private Category category;
-    private Date startDate;
+    private final String description;
+    private final double price;
+    private final Category category;
+    private final Date startDate;
 
     public MenuItem(String description, double price, Category category, Date startDate) {
         this.description = description;
@@ -26,32 +26,16 @@ public class MenuItem {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public double getPrice() {
         return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 
     public Category getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
     public Date getStartDate() {
         return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
     }
 
     public boolean isNew() {
