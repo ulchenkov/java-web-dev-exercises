@@ -1,6 +1,6 @@
 package org.launchcode.java.demos.lsn6inheritance;
 
-public class Cat {
+public abstract class Cat {
 
     private boolean tired = false;
     private boolean hungry = false;
@@ -9,6 +9,9 @@ public class Cat {
     // The biological family for all cat species
     private String family = "Felidae";
 
+    public Cat () {
+        weight = 13;
+    }
     public Cat (double aWeight) {
         weight = aWeight;
     }
@@ -64,5 +67,11 @@ public class Cat {
 
     public String noise () {
         return "Meeeeeeooooowww!";
+    }
+
+    //public abstract boolean isSatisfied();
+
+    public String sayHi() {
+     return "Hello!";
     }
 }
