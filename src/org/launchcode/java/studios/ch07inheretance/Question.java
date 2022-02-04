@@ -2,15 +2,24 @@ package org.launchcode.java.studios.ch07inheretance;
 
 import java.util.ArrayList;
 
-public  class Question {
+class Question {
     private String questionText;
     private ArrayList<Answer> answers;
+    private final QuestionType questionType;
 
-    public Question(String questionText) {
+    protected Question(String questionText, QuestionType questionType) {
         this.questionText = questionText;
+        this.questionType = questionType;
         answers = new ArrayList<>();
     }
 
+    public String getQuestionText() {
+        return questionText;
+    }
+
+    public QuestionType getQuestionType() {
+        return questionType;
+    }
 
     protected boolean addAnswer(String answerText, boolean isCorrect) {
         Answer newAnswer = new Answer(answerText, isCorrect);

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class TrueFalseQuestion extends Question {
     public TrueFalseQuestion(String questionText, boolean isQuestionTrue) {
-        super(questionText);
+        super(questionText, QuestionType.TRUE_FALSE_QUESTION);
         setQuestionCorrectAnswer(isQuestionTrue);
     }
 
@@ -26,10 +26,5 @@ public class TrueFalseQuestion extends Question {
     @Override
     protected boolean removeAnswer(Answer answer) {
         return false;
-    }
-
-    @Override
-    public ArrayList<Answer> getAnswers() {
-        return null;
     }
 }
