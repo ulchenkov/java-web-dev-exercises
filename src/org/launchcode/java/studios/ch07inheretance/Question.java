@@ -5,6 +5,7 @@ import java.util.ArrayList;
 class Question {
     private String questionText;
     private ArrayList<Answer> answers;
+    ArrayList<Integer> userAnswers = new ArrayList<>();
     private final QuestionType questionType;
 
     protected Question(String questionText, QuestionType questionType) {
@@ -38,9 +39,20 @@ class Question {
         return new ArrayList<>(answers);
     }
 
-    public void printAnswers() {
-        for(Answer answer : answers) {
-            System.out.println(answer.getAnswerText());
+    protected void print() {
+        System.out.println(questionText);
+        for (int i = 0; i < answers.size(); i++) {
+            System.out.printf("  %s. %s%n", i + 1, answers.get(i).getAnswerText());
         }
+    }
+
+    protected void getUserAnswer() {
+
+        do {
+            System.out.print("\nYour answer(s): ");
+            System.out.println(userAnswers);
+            System.out.println("Select you answer(s) or Enter to confirm: ");
+        } while (true);
+
     }
 }

@@ -24,19 +24,27 @@ public class Menu {
         }
 
         selectionOptions += " (ENTER to exit)";
+        return getMenuItem(selectionOptions, menuItems.size());
+    }
 
+    private static String enterString(String prompt) {
+        System.out.printf("%s: ", prompt);
+        return scanner.nextLine();
+    }
+
+    public static int getMenuItem(String prompt, int maxNumber) {
         int menuItem = -1;
         do {
-            String userInput = enterString(selectionOptions);
+            String userInput = enterString(prompt);
             if (userInput.isEmpty()) {
                 menuItem = 0;
 
             } else {
                 try {
                     menuItem = Integer.parseInt(userInput);
-                    if (menuItem < 1 || menuItem > menuItems.size()) {
+                    if (menuItem < 1 || menuItem > maxNumber) {
                         menuItem = -1;
-                        System.out.printf("Enter a number from 1 to %s!%n", menuItems.size());
+                        System.out.printf("Enter a number from 1 to %s!%n", maxNumber);
                     }
                 } catch (NumberFormatException exception) {
                     System.out.println("Not a number!");
@@ -44,10 +52,5 @@ public class Menu {
             }
         } while (menuItem < 0);
         return menuItem;
-    }
-
-    private static String enterString(String prompt) {
-        System.out.printf("%s: ", prompt);
-        return scanner.nextLine();
     }
 }
