@@ -3,16 +3,11 @@ package org.launchcode.java.studios.ch07inheretance;
 import java.util.ArrayList;
 
 public class Quiz {
-    private ArrayList<Question> questions;
+    private final ArrayList<Question> questions = new ArrayList<>();
     private final String title;
 
-    public Quiz(String title, boolean useDefaultQuestions) {
+    public Quiz(String title) {
         this.title = title;
-        if (useDefaultQuestions) {
-            questions = getDefaultQuestions();
-        } else {
-            questions = new ArrayList<>();
-        }
     }
 
     public String getTitle() {
@@ -20,31 +15,17 @@ public class Quiz {
     }
 
     public void addQuestion(Question question) {
-        questions.add(question);
+        for(Answer answer : question.getAnswers()) {
+            if (answer.isCorrect()) {
+                questions.add(question);
+                System.out.println("Question has been added into the quiz");
+                return;
+            }
+        }
+        System.out.println("Error! No correct answer. Question has NOT been added.");
     }
 
     public ArrayList<Question> getQuestions() {
         return new ArrayList<>(questions);
-    }
-
-    private ArrayList<Question> getDefaultQuestions() {
-        ArrayList<Question> questions = new ArrayList<>();
-        Question question = new TrueFalseQuestion("2 x 2 = 4?", true);
-        questions.add(question);
-
-        question = new MultipleChoiceQuestion("2 x 2 = ?");
-        question.addAnswer("3", false);
-        question.addAnswer("4", true);
-        question.addAnswer("5", false);
-        questions.add(question);
-
-        question = new CheckboxQuestion("Which numbers are even?");
-        question.addAnswer("2", true);
-        question.addAnswer("5", false);
-        question.addAnswer("112", true);
-        question.addAnswer("97", false);
-        questions.add(question);
-
-        return questions;
     }
 }

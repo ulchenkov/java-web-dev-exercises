@@ -4,27 +4,29 @@ import java.util.ArrayList;
 
 public class TrueFalseQuestion extends Question {
     public TrueFalseQuestion(String questionText, boolean isQuestionTrue) {
-        super(questionText, QuestionType.TRUE_FALSE_QUESTION);
-        setQuestionCorrectAnswer(isQuestionTrue);
+        super(questionText);
+        super.addAnswer("True", isQuestionTrue);
+        super.addAnswer("False", !isQuestionTrue);
     }
 
-    public void setQuestionCorrectAnswer(boolean correctAnswer) {
-        if (!super.getAnswers().isEmpty()) {
-            for(Answer answer : super.getAnswers()){
-                super.removeAnswer(answer);
-            }
+    @Override
+    public void addAnswer(String answerText, boolean isCorrect) {
+        System.out.println("  Error! True/False question doesn't have answers.");
+    }
+
+    @Override
+    public void removeAnswer(Answer answer) {
+        System.out.println("  Error! True/False question doesn't have answers.");
+    }
+
+    @Override
+    public void ask() {
+        super.ask();
+        int userSelection = Menu.getMenuItem("Select correct answer", getAnswers().size());
+        if (userSelection > 0) {
+            ArrayList<Integer> userAnswer = new ArrayList<>();
+            userAnswer.add(userSelection);
+            setUserAnswers(userAnswer);
         }
-        super.addAnswer("True", correctAnswer);
-        super.addAnswer("False", !correctAnswer);
-    }
-
-    @Override
-    protected boolean addAnswer(String answerText, boolean isCorrect) {
-        return false;
-    }
-
-    @Override
-    protected boolean removeAnswer(Answer answer) {
-        return false;
     }
 }

@@ -1,31 +1,9 @@
 package org.launchcode.java.studios.ch07inheretance;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
     private static final Scanner scanner = new Scanner(System.in);
-
-    protected static int getUserSelection(String menuTitle, ArrayList<String> menuItems) {
-        System.out.printf("%n%s%n", menuTitle);
-        for(int i = 0; i < menuItems.size(); i++) {
-            System.out.printf("    %s. %s%n", i + 1, menuItems.get(i));
-        }
-
-        String selectionOptions;
-        if (menuItems.size() > 5) {
-            selectionOptions = "Enter 1, 2, ..., " + (menuItems.size() - 1) + ", " + menuItems.size();
-        } else {
-            selectionOptions = "Enter ";
-            for(int i = 0; i < menuItems.size() - 1; i++){
-                selectionOptions += String.format("%s, ", i + 1);
-            }
-            selectionOptions += String.format("or %s", menuItems.size());
-        }
-
-        selectionOptions += " (ENTER to exit)";
-        return getMenuItem(selectionOptions, menuItems.size());
-    }
 
     private static String enterString(String prompt) {
         System.out.printf("%s: ", prompt);
