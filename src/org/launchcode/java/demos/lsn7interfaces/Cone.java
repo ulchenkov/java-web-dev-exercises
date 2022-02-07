@@ -8,5 +8,8 @@ public class Cone extends Ingredient {
         super (aName, aCost, someAllergens);
     }
 
-
+    @Override
+    public String toString() {
+        return String.format("%s: $%s (%s)", getName(), getCost(), getAllergens().size());
+    }
 }
